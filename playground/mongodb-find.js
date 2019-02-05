@@ -11,7 +11,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 
     // find returns MongoDB cursor, not actual documents
     // pointer to documents, cursor has methods 
-    // toArray returns a promise
+    // toArray returns the records and a promise
 
     // db.collection('Todos').find({
     //         _id: new ObjectID('5c5715700db9da646ea2b9ec')}).toArray().then((docs) => {

@@ -2,9 +2,6 @@
 //const MongoClient = require('mongodb').MongoClient;
 const {MongoClient, ObjectID} = require('mongodb');
 
-var obj = new ObjectID();
-console.log(obj);
-
 // Don't have to create db first, just add collection name to url
 // 2 arguments; 1. string - url where database lives
 // 2. callback function
