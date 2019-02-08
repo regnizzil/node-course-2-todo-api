@@ -1,5 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var {ObjectID} = require('mongodb');
+
+
 //this is destructuring, essentially creating a local variable called mongoose equal to
     //the mongoose property on the object, the object is the return result form requiring the
     //mongoose.js file
@@ -30,14 +33,36 @@ app.post('/todos', (req, res) => {
     //console.log(req.body);
 });
 
+// GET all
 app.get('/todos', (req, res) => {
     Todo.find().then((todos) => {
-        // rather than send back an array of todos, create an object, allows adding properties
+        // rather than send back an array of todos, create an object, allows flexibility to add properties, etc
         res.send({todos});
     }, (e) => {
         res.status(400).send(e);
     });
-}, (e) => {
+});
+
+// GET one by id
+// url parameters, syntax colon followed by name 
+// ex. :id creates an id variable on the request object
+app.get('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send();
+    }
+
+    Todo.findById(id).then((todo) => {
+
+        if(!todo){
+            return res.status(404).send();
+        }
+
+        res.send({todo});
+    }).catch((e) => {
+        res.status(400).send();
+    });
 
 });
 
